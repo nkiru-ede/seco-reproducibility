@@ -65,7 +65,7 @@ Alternative download: [Processed Results on SharePoint](https://vuw-my.sharepoin
 | Script | Input | Output |
 |--------|-------|--------|
 | [`calculate_growth_metrics.py`](scripts/calculate_growth_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | `data/growth_metrics.pkl` |
-| [`plot_figure2_growth.py`](scripts/plot_figure2_growth.py) | `data/growth_metrics.pkl` | [`figure_2_growth.png`](plots/figure_2_growth.png) |
+| [`plot_figure2_growth.py`](scripts/plot_figure2_growth.py) | `data/growth_metrics.pkl` | [`figure_2_deps_dev.png`](plots/figure_2_deps_dev.png) |
 
 ### RQ2: Dependency Concentration (Gini Index)
 
@@ -185,13 +185,23 @@ seco-reproducibility/
 │   ├── innovation_{ecosystem}.pkl            # Innovation metrics (7 files)
 │   ├── {eco}_batched_dependency_jaccard_results.pkl  # Dependency validation (7 files)
 │   └── api_jaccard_results.pkl               # API surface validation
-├── plots/                # Generated figures
-│   ├── figure_2_growth.png
-│   ├── figure_7_gini_concentration.png
-│   ├── figure_10_elite_turnover.png
-│   ├── figures_20_21_innovation.png
-│   ├── figure_22_dependency_changes.png
-│   └── figure_23_api_changes.png
+├── plots/                # Generated figures from the paper
+│   ├── figure_1_complete_deps_dev.png
+│   ├── figure_2_deps_dev.png
+│   ├── figure_3_maven_gag_ratio_final.png
+│   ├── figure_7_gini.png
+│   ├── figure8_elite_turnover_all.png
+│   ├── figure_10_babel_transition.png
+│   ├── figure_11_cargo_serialization.png
+│   ├── figure_12_maven_elite_change.png
+│   ├── figure_13_maven_tech_trends.png
+│   ├── figure_14_pypi_tech_trends.png
+│   ├── figure_15_innovation_new.png
+│   ├── figure_15_npm_tech_trends.png
+│   ├── figure_16_innovation_update.png
+│   ├── dependency_major_vs_nonmajor_full.png
+│   ├── api_major_vs_nonmajor_boxplot.png
+│   └── ... (and other supplementary figures)
 ├── dependencies/         # Raw dependency data (not included, download separately)
 ├── README.md             # This file
 ├── requirements.txt      # Python dependencies
@@ -200,14 +210,37 @@ seco-reproducibility/
 
 ## Generated Figures
 
-This repository includes the following pre-generated figures from the paper:
+This repository includes all pre-generated figures from the paper:
 
-- **[Figure 2](plots/figure_2_growth.png)**: Package growth across ecosystems
-- **[Figure 7](plots/figure_7_gini_concentration.png)**: Dependency concentration (Gini Index)
-- **[Figure 10](plots/figure_10_elite_turnover.png)**: Elite package turnover rates
-- **[Figures 20-21](plots/figures_20_21_innovation.png)**: Innovation pathways (InnovNEW and InnovUPD)
-- **[Figure 22](plots/figure_22_dependency_changes.png)**: Dependency change validation
-- **[Figure 23](plots/figure_23_api_changes.png)**: API surface change validation
+**Main Analysis Figures**:
+- **[Figure 1](plots/figure_1_complete_deps_dev.png)**: Complete dependency data overview
+- **[Figure 2](plots/figure_2_deps_dev.png)**: Package growth across ecosystems
+- **[Figure 3](plots/figure_3_maven_gag_ratio_final.png)**: Maven growth and noise ratio
+- **[Figure 7](plots/figure_7_gini.png)**: Dependency concentration (Gini Index)
+- **[Figure 8](plots/figure8_elite_turnover_all.png)**: Elite package turnover rates across ecosystems
+- **[Figure 15](plots/figure_15_innovation_new.png)**: Innovation pathways - InnovNEW
+- **[Figure 16](plots/figure_16_innovation_update.png)**: Innovation pathways - InnovUPD
+
+**Case Study Figures**:
+- **[Figure 10](plots/figure_10_babel_transition.png)**: Babel ecosystem transition (npm)
+- **[Figure 11](plots/figure_11_cargo_serialization.png)**: Cargo serialization libraries
+- **[Figure 12](plots/figure_12_maven_elite_change.png)**: Maven elite package changes
+- **[Figure 13](plots/figure_13_maven_tech_trends.png)**: Maven technology trends
+- **[Figure 14](plots/figure_14_pypi_tech_trends.png)**: PyPI technology trends
+- **[Figure 15 (npm)](plots/figure_15_npm_tech_trends.png)**: npm technology trends
+
+**Validation Figures**:
+- **[Dependency Changes](plots/dependency_major_vs_nonmajor_full.png)**: Dependency change validation
+- **[API Changes](plots/api_major_vs_nonmajor_boxplot.png)**: API surface change validation
+
+**Supplementary Figures**:
+- **[Hibernate](plots/hibernate.png)**: Hibernate transition analysis
+- **[Spring Framework](plots/springframework.png)**: Spring Framework evolution
+- **[RubyGems Auth](plots/figure_rubygems_auth.png)**: RubyGems authentication libraries
+- **[RubyGems Jobs](plots/figure_rubygems_jobs.png)**: RubyGems job queue libraries
+- **[Webrat/Capybara](plots/figure_rubygems_webrat_capybara.png)**: RubyGems testing frameworks
+- **[Go HTTP Frameworks](plots/figure_go_http_framework.png)**: Go HTTP framework evolution
+- **[Noise Ratio](plots/noise_ratio_y2_lag.png)**: Noise ratio analysis with lag
 
 ## Citation
 
