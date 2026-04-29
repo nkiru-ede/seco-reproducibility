@@ -26,9 +26,10 @@ wheels/
 # Jupyter Notebook
 .ipynb_checkpoints
 
-# Data files (download separately)
-dependencies/
-data/*.pkl
+# Data files
+dependencies/  # Raw dependency data (download separately from SharePoint)
+# Pre-computed results are committed to repository
+# To add new pre-computed data files, use: git add -f data/filename.pkl
 
 # IDE
 .vscode/

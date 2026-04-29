@@ -26,12 +26,35 @@ pip install -r requirements.txt
 
 ## Data Sources
 
-The analysis uses dependency data from [deps.dev](https://deps.dev/), accessed via Google BigQuery. The processed datasets are available at:
+The analysis uses dependency data from [deps.dev](https://deps.dev/), accessed via Google BigQuery.
 
-1. **Dependency Data** (CSV files): [SharePoint Link 1](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)
-2. **Processed Results** (PKL files): [SharePoint Link 2](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgASd6cPmo8bQpNm2N7vJoihAeZ515cY3alDaVQdDfKio24?e=5KbeJE)
+### Raw Dependency Data (CSV files)
 
-Download the data files and place them in the appropriate directories as indicated in the workflow below.
+Download from SharePoint: [Dependencies and Releases Data](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)
+
+Place the downloaded CSV files in the `dependencies/` directory:
+```
+dependencies/
+├── maven/*.csv.gz
+├── npm/*.csv.gz
+├── pypi/*.csv.gz
+├── cargo/*.csv.gz
+├── go/*.csv.gz
+├── nuget/*_resolved.csv.gz
+└── rubygems/*_resolved.csv.gz
+```
+
+### Pre-Computed Results (PKL files)
+
+Pre-computed analysis results are included in the [`data/`](data/) folder of this repository:
+
+- **Gini Index**: `gini_cumulative_{ecosystem}.pkl` - Dependency concentration metrics for each ecosystem
+- **Elite Turnover**: `elite_turnover_{ecosystem}.pkl` - Top package turnover rates for each ecosystem
+- **Innovation Metrics**: `innovation_{ecosystem}.pkl` - InnovNEW and InnovUPD metrics for each ecosystem
+- **Dependency Validation**: `{ecosystem}_batched_dependency_jaccard_results.pkl` - Dependency change analysis
+- **API Validation**: `api_jaccard_results.pkl` - API surface change analysis
+
+Alternative download: [Processed Results on SharePoint](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgASd6cPmo8bQpNm2N7vJoihAeZ515cY3alDaVQdDfKio24?e=5KbeJE)
 
 ## Research Questions & Workflow
 
@@ -41,7 +64,7 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| [`calculate_growth_metrics.py`](scripts/calculate_growth_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/growth_metrics.pkl` |
+| [`calculate_growth_metrics.py`](scripts/calculate_growth_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | `data/growth_metrics.pkl` |
 | [`plot_figure2_growth.py`](scripts/plot_figure2_growth.py) | `data/growth_metrics.pkl` | [`figure_2_growth.png`](plots/figure_2_growth.png) |
 
 ### RQ2: Dependency Concentration (Gini Index)
@@ -50,8 +73,8 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| [`calculate_gini_cumulative.py`](scripts/calculate_gini_cumulative.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/gini_cumulative_{ecosystem}.pkl` |
-| [`plot_figure7_gini.py`](scripts/plot_figure7_gini.py) | `data/gini_cumulative_*.pkl` | [`figure_7_gini_concentration.png`](plots/figure_7_gini_concentration.png) |
+| [`calculate_gini_cumulative.py`](scripts/calculate_gini_cumulative.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | [`gini_cumulative_{ecosystem}.pkl`](data/) |
+| [`plot_figure7_gini.py`](scripts/plot_figure7_gini.py) | [`gini_cumulative_*.pkl`](data/) | [`figure_7_gini_concentration.png`](plots/figure_7_gini_concentration.png) |
 
 **Note**: The Gini index is calculated using cumulative dependencies: for each year *t*, we count ALL dependencies from packages released up to year *t* (not just those released in year *t*).
 
@@ -61,8 +84,8 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| [`calculate_elite_turnover.py`](scripts/calculate_elite_turnover.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/elite_turnover_{ecosystem}.pkl` |
-| [`plot_figure10_turnover.py`](scripts/plot_figure10_turnover.py) | `data/elite_turnover_*.pkl` | [`figure_10_elite_turnover.png`](plots/figure_10_elite_turnover.png) |
+| [`calculate_elite_turnover.py`](scripts/calculate_elite_turnover.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | [`elite_turnover_{ecosystem}.pkl`](data/) |
+| [`plot_figure10_turnover.py`](scripts/plot_figure10_turnover.py) | [`elite_turnover_*.pkl`](data/) | [`figure_10_elite_turnover.png`](plots/figure_10_elite_turnover.png) |
 
 ### RQ4: Innovation Pathways
 
@@ -72,22 +95,22 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| [`calculate_innovation_metrics.py`](scripts/calculate_innovation_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/innovation_{ecosystem}.pkl` |
-| [`plot_figures_20_21_innovation.py`](scripts/plot_figures_20_21_innovation.py) | `data/innovation_*.pkl` | [`figures_20_21_innovation.png`](plots/figures_20_21_innovation.png) |
+| [`calculate_innovation_metrics.py`](scripts/calculate_innovation_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | [`innovation_{ecosystem}.pkl`](data/) |
+| [`plot_figures_20_21_innovation.py`](scripts/plot_figures_20_21_innovation.py) | [`innovation_*.pkl`](data/) | [`figures_20_21_innovation.png`](plots/figures_20_21_innovation.png) |
 
 ### Innovation Metric Validation
 
 **Dependency Change Analysis**:
 | Script | Input | Output |
 |--------|-------|--------|
-| [`analyze_dependency_changes.py`](scripts/analyze_dependency_changes.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/dependency_jaccard_results.pkl` |
-| [`plot_dependency_validation.py`](scripts/plot_dependency_validation.py) | `data/dependency_jaccard_results.pkl` | [`figure_22_dependency_changes.png`](plots/figure_22_dependency_changes.png) |
+| [`analyze_dependency_changes.py`](scripts/analyze_dependency_changes.py) | `dependencies/{ecosystem}/*.csv.gz` ([download](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgA927qzIR9-RKDKOLxJh3fPAV2Ux1orJ4D4YLArjrqnIdA?e=VNXQsW)) | [`{ecosystem}_batched_dependency_jaccard_results.pkl`](data/) |
+| [`plot_dependency_validation.py`](scripts/plot_dependency_validation.py) | [`*_batched_dependency_jaccard_results.pkl`](data/) | [`figure_22_dependency_changes.png`](plots/figure_22_dependency_changes.png) |
 
 **API Surface Analysis**:
 | Script | Input | Output |
 |--------|-------|--------|
-| [`analyze_api_changes.py`](scripts/analyze_api_changes.py) | Package artifacts from registries | `data/api_jaccard_results.pkl` |
-| [`plot_api_validation.py`](scripts/plot_api_validation.py) | `data/api_jaccard_results.pkl` | [`figure_23_api_changes.png`](plots/figure_23_api_changes.png) |
+| [`analyze_api_changes.py`](scripts/analyze_api_changes.py) | Package artifacts from registries | [`api_jaccard_results.pkl`](data/api_jaccard_results.pkl) |
+| [`plot_api_validation.py`](scripts/plot_api_validation.py) | [`api_jaccard_results.pkl`](data/api_jaccard_results.pkl) | [`figure_23_api_changes.png`](plots/figure_23_api_changes.png) |
 
 ## Reproducibility Instructions
 
@@ -156,7 +179,12 @@ seco-reproducibility/
 ├── scripts/              # Analysis and visualization scripts
 │   ├── calculate_*.py    # Metric calculation scripts
 │   └── plot_*.py         # Visualization scripts
-├── data/                 # Intermediate results (PKL files)
+├── data/                 # Pre-computed analysis results (PKL files)
+│   ├── gini_cumulative_{ecosystem}.pkl       # Gini index data (7 files)
+│   ├── elite_turnover_{ecosystem}.pkl        # Elite turnover data (7 files)
+│   ├── innovation_{ecosystem}.pkl            # Innovation metrics (7 files)
+│   ├── {eco}_batched_dependency_jaccard_results.pkl  # Dependency validation (7 files)
+│   └── api_jaccard_results.pkl               # API surface validation
 ├── plots/                # Generated figures
 │   ├── figure_2_growth.png
 │   ├── figure_7_gini_concentration.png
