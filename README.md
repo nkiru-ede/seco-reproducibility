@@ -41,8 +41,8 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/calculate_growth_metrics.py` | `dependencies/{ecosystem}/*.csv.gz` | `data/growth_metrics.pkl` |
-| `scripts/plot_figure2_growth.py` | `data/growth_metrics.pkl` | `plots/figure_2_growth.png` |
+| [`calculate_growth_metrics.py`](scripts/calculate_growth_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/growth_metrics.pkl` |
+| [`plot_figure2_growth.py`](scripts/plot_figure2_growth.py) | `data/growth_metrics.pkl` | [`figure_2_growth.png`](plots/figure_2_growth.png) |
 
 ### RQ2: Dependency Concentration (Gini Index)
 
@@ -50,8 +50,8 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/calculate_gini_cumulative.py` | `dependencies/{ecosystem}/*.csv.gz` | `data/gini_cumulative_{ecosystem}.pkl` |
-| `scripts/plot_figure7_gini.py` | `data/gini_cumulative_*.pkl` | `plots/figure_7_gini_concentration.png` |
+| [`calculate_gini_cumulative.py`](scripts/calculate_gini_cumulative.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/gini_cumulative_{ecosystem}.pkl` |
+| [`plot_figure7_gini.py`](scripts/plot_figure7_gini.py) | `data/gini_cumulative_*.pkl` | [`figure_7_gini_concentration.png`](plots/figure_7_gini_concentration.png) |
 
 **Note**: The Gini index is calculated using cumulative dependencies: for each year *t*, we count ALL dependencies from packages released up to year *t* (not just those released in year *t*).
 
@@ -61,8 +61,8 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/calculate_elite_turnover.py` | `dependencies/{ecosystem}/*.csv.gz` | `data/elite_turnover_{ecosystem}.pkl` |
-| `scripts/plot_figure10_turnover.py` | `data/elite_turnover_*.pkl` | `plots/figure_10_elite_turnover.png` |
+| [`calculate_elite_turnover.py`](scripts/calculate_elite_turnover.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/elite_turnover_{ecosystem}.pkl` |
+| [`plot_figure10_turnover.py`](scripts/plot_figure10_turnover.py) | `data/elite_turnover_*.pkl` | [`figure_10_elite_turnover.png`](plots/figure_10_elite_turnover.png) |
 
 ### RQ4: Innovation Pathways
 
@@ -72,22 +72,22 @@ Download the data files and place them in the appropriate directories as indicat
 
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/calculate_innovation_metrics.py` | `dependencies/{ecosystem}/*.csv.gz` | `data/innovation_{ecosystem}.pkl` |
-| `scripts/plot_figures_20_21_innovation.py` | `data/innovation_*.pkl` | `plots/figure_20_innov_new.png`, `plots/figure_21_innov_upd.png` |
+| [`calculate_innovation_metrics.py`](scripts/calculate_innovation_metrics.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/innovation_{ecosystem}.pkl` |
+| [`plot_figures_20_21_innovation.py`](scripts/plot_figures_20_21_innovation.py) | `data/innovation_*.pkl` | [`figures_20_21_innovation.png`](plots/figures_20_21_innovation.png) |
 
 ### Innovation Metric Validation
 
 **Dependency Change Analysis**:
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/analyze_dependency_changes.py` | `dependencies/{ecosystem}/*.csv.gz` | `data/dependency_jaccard_results.pkl` |
-| `scripts/plot_dependency_validation.py` | `data/dependency_jaccard_results.pkl` | `plots/figure_22_dependency_changes.png` |
+| [`analyze_dependency_changes.py`](scripts/analyze_dependency_changes.py) | `dependencies/{ecosystem}/*.csv.gz` | `data/dependency_jaccard_results.pkl` |
+| [`plot_dependency_validation.py`](scripts/plot_dependency_validation.py) | `data/dependency_jaccard_results.pkl` | [`figure_22_dependency_changes.png`](plots/figure_22_dependency_changes.png) |
 
 **API Surface Analysis**:
 | Script | Input | Output |
 |--------|-------|--------|
-| `scripts/analyze_api_changes.py` | Package artifacts from registries | `data/api_jaccard_results.pkl` |
-| `scripts/plot_api_validation.py` | `data/api_jaccard_results.pkl` | `plots/figure_23_api_changes.png` |
+| [`analyze_api_changes.py`](scripts/analyze_api_changes.py) | Package artifacts from registries | `data/api_jaccard_results.pkl` |
+| [`plot_api_validation.py`](scripts/plot_api_validation.py) | `data/api_jaccard_results.pkl` | [`figure_23_api_changes.png`](plots/figure_23_api_changes.png) |
 
 ## Reproducibility Instructions
 
@@ -154,13 +154,32 @@ python scripts/calculate_mann_kendall_trends.py
 ```
 seco-reproducibility/
 ├── scripts/              # Analysis and visualization scripts
+│   ├── calculate_*.py    # Metric calculation scripts
+│   └── plot_*.py         # Visualization scripts
 ├── data/                 # Intermediate results (PKL files)
 ├── plots/                # Generated figures
+│   ├── figure_2_growth.png
+│   ├── figure_7_gini_concentration.png
+│   ├── figure_10_elite_turnover.png
+│   ├── figures_20_21_innovation.png
+│   ├── figure_22_dependency_changes.png
+│   └── figure_23_api_changes.png
 ├── dependencies/         # Raw dependency data (not included, download separately)
 ├── README.md             # This file
 ├── requirements.txt      # Python dependencies
 └── LICENSE               # Apache 2.0 License
 ```
+
+## Generated Figures
+
+This repository includes the following pre-generated figures from the paper:
+
+- **[Figure 2](plots/figure_2_growth.png)**: Package growth across ecosystems
+- **[Figure 7](plots/figure_7_gini_concentration.png)**: Dependency concentration (Gini Index)
+- **[Figure 10](plots/figure_10_elite_turnover.png)**: Elite package turnover rates
+- **[Figures 20-21](plots/figures_20_21_innovation.png)**: Innovation pathways (InnovNEW and InnovUPD)
+- **[Figure 22](plots/figure_22_dependency_changes.png)**: Dependency change validation
+- **[Figure 23](plots/figure_23_api_changes.png)**: API surface change validation
 
 ## Citation
 
