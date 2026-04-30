@@ -242,19 +242,7 @@ This repository includes all pre-generated figures from the paper:
 - **[Go HTTP Frameworks](plots/figure_go_http_framework.png)**: Go HTTP framework evolution
 - **[Noise Ratio](plots/noise_ratio_y2_lag.png)**: Noise ratio analysis with lag
 
-## Citation
 
-If you use this code or data, please cite:
-
-```bibtex
-@article{ede2026charting,
-  title={Charting the dynamics of popularity and innovation in multiple open-source software ecosystems},
-  author={Ede, Nkiru and Dietrich, Jens and Z{\"u}licke, Ulrich},
-  journal={Journal of Systems and Software},
-  note={Manuscript under review},
-  year={2026}
-}
-```
 
 ## License
 
