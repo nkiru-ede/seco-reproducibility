@@ -54,7 +54,7 @@ Pre-computed analysis results are included in the [`data/`](data/) folder of thi
 - **Dependency Validation**: `{ecosystem}_batched_dependency_jaccard_results.pkl` - Dependency change analysis
 - **API Validation**: `api_jaccard_results.pkl` - API surface change analysis
 
-Alternative download: [Processed Results on SharePoint](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgASd6cPmo8bQpNm2N7vJoihAeZ515cY3alDaVQdDfKio24?e=5KbeJE)
+Alternative download: [Raw data on SharePoint](https://vuw-my.sharepoint.com/:f:/g/personal/edenk_staff_vuw_ac_nz/IgASd6cPmo8bQpNm2N7vJoihAeZ515cY3alDaVQdDfKio24?e=5KbeJE)
 
 ## Research Questions & Workflow
 
